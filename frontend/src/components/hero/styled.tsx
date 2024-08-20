@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled("div")(() => ({
+export const Container = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   padding: "1rem",
+  background: theme.colors.background,
   boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
 
   'img': {
@@ -30,6 +31,13 @@ export const Title = styled("h1")(({ theme }) => ({
     fontSize: "2.5rem",
   },
 
+}))
+
+export const Text = styled("p")(({ theme }) => ({
+  color: theme.colors.secondary,
+  fontSize: "12px",
+  fontWeight: "600",
+  marginTop: "15px",
 }))
 
 export const Address = styled("p")(({ theme }) => ({
@@ -74,4 +82,14 @@ export const SocialMedias = styled("div")(({ theme }) => ({
       color: theme.colors.primary
     },
   }
+}))
+
+export const Button = styled("button")(({ theme }) => ({
+  background: theme.colors.primary,
+  color: theme.colors.background,
+  border: "none",
+  padding: "10px 20px",
+  borderRadius: "5px",
+  marginTop: "15px",
+  cursor: "pointer",
 }))

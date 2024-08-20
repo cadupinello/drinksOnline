@@ -1,4 +1,3 @@
-import Footer from '../footer'
 import Header from '../header'
 import Hero from '../hero'
 import Menu from '../menu'
@@ -10,7 +9,6 @@ const Page = () => {
       <Hero />
       <Header />
       <Menu />
-      <Footer />
     </Styled.Container>
   )
 }

@@ -1,10 +1,16 @@
 import * as Styled from './styled'
 
-const Footer = () => {
+interface ModalProps {
+  setOpenInfo: (openInfo: boolean) => void
+}
+const Modal = ({setOpenInfo}: ModalProps) => {
   return (
-    <Styled.Footer>
-      <h1>Mais informações</h1>
+    <Styled.Container>
       <div>
+      <div>
+      <h1>Mais informações</h1>
+      <button onClick={() => setOpenInfo(false)}>X</button>
+      </div>
       <div>
         <h3>Contatos</h3>
         <p>faustinodrinks@outlook.com</p>
@@ -15,9 +21,8 @@ const Footer = () => {
         <p>Sexta, Sabado e Domingo: 18:00 a 01:00</p>
       </div>
       </div>
-      <p>© 2022 Faustino. Todos os direitos reservados.</p>
-    </Styled.Footer>
+    </Styled.Container>
   )
 }
 
-export default Footer
+export default Modal

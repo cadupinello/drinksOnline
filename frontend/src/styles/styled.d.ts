@@ -9,7 +9,9 @@ declare module "styled-components" {
       secondary: string;
 
       background: string;
+      backgroundInput: string;
       text: string;
+      textDescription: string;
     }
   }
 }
