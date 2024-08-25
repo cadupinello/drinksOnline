@@ -3,10 +3,14 @@ import Hero from '../hero'
 import Menu from '../menu'
 import * as Styled from './styled'
 
-const Page = () => {
+type PageProps = {
+  toggleTheme: () => void
+}
+
+const Page = ({toggleTheme}: PageProps) => {
   return (
     <Styled.Container>
-      <Hero />
+      <Hero toggleTheme={toggleTheme} />
       <Header />
       <Menu />
     </Styled.Container>

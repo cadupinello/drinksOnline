@@ -20,7 +20,7 @@ export const Container = styled("div")(() => ({
 
 export const Title = styled("h1")(({ theme }) => ({
   color: theme.colors.primary,
-  fontSize: "3rem",
+  fontSize: "2.5rem",
   textTransform: "capitalize",
   fontWeight: "600",
   lineHeight: "3rem",
@@ -54,14 +54,14 @@ export const Item = styled("div")(({ theme }) => ({
     },
 
     "> span": {
-      color: theme.colors.textDescription,
+      color: theme.title === 'light' ? theme.colors.textDescription : theme.colors.text,
       fontSize: "16px",
       fontWeight: "600",
       lineHeight: "1rem",
     },
 
     "> p": {
-      color: theme.colors.textDescription,
+      color: theme.colors.text,
       fontSize: "18px",
       fontWeight: "600",
       lineHeight: "1rem",

@@ -1,31 +1,18 @@
-import { useEffect, useState } from 'react'
-import * as Styled from './styled'
+import { useDrinks } from '../../hooks/useDrinks';
+import * as Styled from './styled';
 
 const Menu = () => {
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch('http://localhost:3001/drinks')
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const result = await response.json()
-        setData(result)
-      } catch (err) {
-        console.error('Failed to fetch data:', err)
-      }
-    })()
-  }, [])
+  const { data: drinks, error, isLoading } = useDrinks();
   
-  console.log(data)
+  if (isLoading) return <p>Carregando...</p>
+  if (error) return <p>Erro: {error.message}</p>
+
   return (
     <Styled.Container>
       <Styled.Title>Drinks</Styled.Title>
       <Styled.List>
-        {data.map((item: any) => (
-          <Styled.Item>
+        {drinks.map((item: any) => (
+          <Styled.Item key={item.id}>
             <div>
               <h1>{item.name}</h1>
               <span>{item.description}</span>

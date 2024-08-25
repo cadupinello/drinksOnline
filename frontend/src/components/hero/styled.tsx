@@ -8,8 +8,8 @@ export const Container = styled("div")(({ theme }) => ({
   boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
 
   'img': {
-    width: "400px",
-    height: "400px",
+    width: "250px",
+    height: "250px",
     alignSelf: "center",
 
     '@media (max-width: 768px)': {
@@ -22,14 +22,10 @@ export const Container = styled("div")(({ theme }) => ({
 
 export const Title = styled("h1")(({ theme }) => ({
   color: theme.colors.primary,
-  fontSize: "3rem",
+  fontSize: "2.5rem",
   textTransform: "capitalize",
   fontWeight: "600",
   lineHeight: "3rem",
-
-  '@media (max-width: 768px)': {
-    fontSize: "2.5rem",
-  },
 
 }))
 
@@ -50,16 +46,16 @@ export const Address = styled("p")(({ theme }) => ({
   marginTop: "15px",
 
   "svg": {
-    color: theme.colors.primary
+    color: theme.title === 'light' ? theme.colors.primary : theme.colors.text
   }
 }))
 
 export const Link = styled("a")(({ theme }) => ({
-  color: theme.colors.secondary,
+  color: theme.title === 'light' ? theme.colors.secondary : theme.colors.text,
   textDecoration: "none",
 
   ".social-medias": {
-    color: theme.colors.primary,
+    color: theme.title === 'light' ? theme.colors.primary : theme.colors.text,
     fontSize: "1rem",
   }
 }))
@@ -79,17 +75,54 @@ export const SocialMedias = styled("div")(({ theme }) => ({
     'svg': {
       width: "20px",
       height: "20px",
-      color: theme.colors.primary
+      color: theme.title === 'light' ? theme.colors.primary : theme.colors.text
     },
   }
 }))
 
 export const Button = styled("button")(({ theme }) => ({
   background: theme.colors.primary,
-  color: theme.colors.background,
+  color: theme.title === 'light' ? theme.colors.background : theme.colors.text,
+  fontSize: "14px",
+  fontWeight: "600",
   border: "none",
   padding: "10px 20px",
   borderRadius: "5px",
   marginTop: "15px",
   cursor: "pointer",
+  transition: "all 0.3s ease",
+  
+  "&:hover": {
+    background: theme.title === 'light' ? theme.colors.secondary : theme.colors.primary
+  }
 }))
+
+export const ToggleButton = styled("button")<{ isDarkMode: boolean }>(({ theme, isDarkMode }) => ({
+  backgroundColor: theme.colors.background,
+  border: `1px solid ${theme.title === 'light' ? theme.colors.primary : theme.colors.text}`,
+  borderRadius: "20px",
+  cursor: "pointer",
+  padding: "5px 10px",
+  fontSize: "10px",
+  transition: "all 0.3s ease",
+  display: "flex",
+  alignItems: "center",
+  gap: "5px",
+
+  "p": {
+    color: theme.title === 'light' ? theme.colors.primary : theme.colors.text,
+    fontWeight: "600",
+    transition: "transform 0.3s ease",
+    transform: isDarkMode ? 'translateX(-20px)' : 'translateX(0)',
+  },
+}));
+
+export const ToggleSwitch = styled("span")<{ isDarkMode: boolean }>(({ theme, isDarkMode }) => ({
+  width: "15px",
+  height: "15px",
+  borderRadius: "50%",
+  backgroundColor: theme.title === 'light' ? theme.colors.primary : theme.colors.text,
+  transition: "transform 0.3s ease",
+  boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.2)",
+  transform: isDarkMode ? 'translateX(60px)' : 'translateX(0)',
+}));
