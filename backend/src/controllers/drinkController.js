@@ -1,11 +1,33 @@
-import { getAllDrinks, getDrinkById } from "../models/drinkModel.js";
+import { getDrinkById } from "../models/drinkModel.js";
+import { DrinkService } from "../services/drinkService.js";
 
 export const fetchAllDrinks = async (req, res) => {
   try {
-    const drinks = await getAllDrinks();
-    res.status(200).json(drinks);
+    const { category, page, limit } = req.query;
+
+    const drinks = await DrinkService.fetchDrinks({
+      category,
+      page,
+      limit
+    });
+    const totalDrinks = await DrinkService.getTotalDrinks();
+    const totalPages = Math.ceil(totalDrinks.count / limit);
+
+    res.json({
+      data: drinks,
+      pagination: {
+        currentPage: parseInt(page) || 1,
+        totalPages,
+        totalItems: totalDrinks.count,
+        itemsPerPage: parseInt(limit) || 10
+      },
+    });
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ 
+      message: 'Erro ao buscar drinks',
+      error
+     });
   }
 };
 
