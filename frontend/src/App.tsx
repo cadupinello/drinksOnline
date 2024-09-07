@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 import { DefaultTheme, ThemeProvider } from "styled-components"
 import Page from "./components/page/page"
 import usePersistTheme from "./hooks/usePersistTheme"
@@ -20,9 +21,14 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Router>
         <Styled.Layout>
-          <Page toggleTheme={toggleTheme} />
-        </Styled.Layout>
+            <Routes>
+              <Route path="/:category" element={<Page toggleTheme={toggleTheme} />} />
+              <Route path="/" element={<Page toggleTheme={toggleTheme} />} />
+            </Routes>
+          </Styled.Layout>
+        </Router>
       </ThemeProvider>
     </QueryClientProvider>
   )

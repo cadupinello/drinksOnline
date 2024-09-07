@@ -71,5 +71,6 @@ export const Item = styled("div")(({ theme }) => ({
   "img": {
     width: "100px",
     height: "100px",
+    borderRadius: "0.5rem",
   }
 }))

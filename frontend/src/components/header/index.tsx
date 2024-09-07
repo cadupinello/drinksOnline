@@ -1,19 +1,21 @@
+import { useLocation } from 'react-router-dom'
 import Input from '../parts/input'
 import * as Styled from './styled'
 
 const Header = () => {
+  const location = useLocation()
   const navItem = [
     {
       name: "Drinks",
-      link: "/drinks"
+      link: "/drinks",
     },
     {
       name: "Bebidas",
-      link: "/bebidas"
+      link: "/whiskeys",
     },
     {
       name: "Cervejas",
-      link: "/cervejas"
+      link: "/beers",
     },
   ]
   return (
@@ -22,7 +24,7 @@ const Header = () => {
       <Styled.NavMenu>
         {navItem.map((item, index) => (
           <Styled.NavItem key={index}>
-            <Styled.Link href={item.link} active={index === 0}>{item.name}</Styled.Link>
+            <Styled.Link to={item.link} active={location.pathname === item.link}>{item.name}</Styled.Link>
           </Styled.NavItem>
         ))}
       </Styled.NavMenu>

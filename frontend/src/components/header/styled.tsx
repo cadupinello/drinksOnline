@@ -1,5 +1,5 @@
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
-
 export const Container = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -10,19 +10,19 @@ export const Container = styled("div")(({ theme }) => ({
 }))
 
 
-export const NavMenu = styled("ul")(({ theme }) => ({
+export const NavMenu = styled("ul")(() => ({
   display: "flex",
   gap: "1rem",
   alignItems: "center",
 }))
 
 
-export const NavItem = styled("li")(({ theme }) => ({
+export const NavItem = styled("li")(() => ({
   listStyle: "none",
 }))
 
 
-export const Link = styled("a")(({ theme, active }) => ({
+export const Link = styled(RouterLink )<{ active?: boolean }>(({ theme, active }) => ({
   color: theme.colors.text,
   fontWeight: "bold",
   textDecoration: "none",
