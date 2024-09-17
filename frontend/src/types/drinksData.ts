@@ -12,5 +12,5 @@ export type TDrinksData = {
   availableDays_saturday: boolean;
   category: string;
   photo: string;
-  amount: string;
+  price: string;
 }

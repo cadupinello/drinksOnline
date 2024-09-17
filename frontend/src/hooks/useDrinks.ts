@@ -8,7 +8,7 @@ interface fetchDrinksParams {
 
 const fetchDrinks = async (params: fetchDrinksParams = {}) => {
   const { category, page = 1, limit = 10 } = params;
-  const url = new URL('http://localhost:3001/drinks');
+  const url = new URL('http://localhost:3333/drinks');
   if (category) {
     url.searchParams.set('category', category);
   }  
@@ -23,6 +23,7 @@ const fetchDrinks = async (params: fetchDrinksParams = {}) => {
     throw new Error(`Erro ao buscar os drinks`);
   }
   
+  console.log(response)
   const data = await response.json();
   return data.data;
 }

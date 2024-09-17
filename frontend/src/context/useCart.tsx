@@ -1,0 +1,83 @@
+import { createContext, useContext, useState, ReactNode } from 'react'
+
+type CartItem = {
+  id: number
+  name: string
+  price: number
+  quantity: number
+}
+
+type CartContextType = {
+  cart: CartItem[]
+  addToCart: (item: CartItem) => void
+  removeToCart: (item: CartItem) => void
+  finalizeOrder: () => void
+}
+
+const CartContext = createContext<CartContextType | undefined>(undefined)
+
+export const useCart = () => {
+  const context = useContext(CartContext)
+
+  if (!context) {
+    throw new Error("useCart deve ser usado dentro do CartProvider")
+  }
+
+  return context
+}
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<CartItem[]>([])
+
+  const addToCart = (item: CartItem) => {
+    setCart(prevCart => {
+      const isExistItem = prevCart.findIndex(cartItem => cartItem.id === item.id)
+
+      if (isExistItem !== -1) {
+        const updatedCart = [...prevCart]
+        updatedCart[isExistItem].quantity += 1
+        return updatedCart
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }]
+      }
+    })
+  }
+
+  const removeToCart = (item: CartItem) => {
+    setCart(prevCart => {
+      const isExistItem = prevCart.findIndex(cartItem => cartItem.id === item.id);
+
+      if (isExistItem !== -1) {
+        const updatedCart = [...prevCart];
+
+        updatedCart[isExistItem].quantity -= 1;
+
+        if (updatedCart[isExistItem].quantity <= 0) {
+          updatedCart.splice(isExistItem, 1);
+        }
+
+        return updatedCart;
+      }
+
+      return prevCart;
+    });
+  };
+
+
+  const finalizeOrder = () => {
+    const whatsappMessage = cart
+      .map(item => `${item.quantity}x ${item.name} - R$ ${item.price * item.quantity}`)
+      .join('%0D%0A');
+    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const whatsappLink = `https://wa.me/5511957944402?text=Itens:%0D%0A${whatsappMessage}%0D%0ATotal: R$ ${total.toFixed(2)}`;
+    window.open(whatsappLink, '_blank');
+  }
+
+  return (
+    <CartContext.Provider
+      value={{ cart, addToCart, removeToCart, finalizeOrder }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
+}

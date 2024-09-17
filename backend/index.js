@@ -1,7 +1,12 @@
 import cors from "cors";
+import dotenv from 'dotenv';
 import express from "express";
-import knex from "./src/db/knex.js";
+import pg from 'pg';
 import drinkRoutes from "./src/routes/drinkRoutes.js";
+
+
+dotenv.config();
+const { Client } = pg
 
 const app = express();
 
@@ -13,12 +18,20 @@ app.use(express.json());
 
 app.use("/drinks", drinkRoutes);
 
-knex.raw('select 1+1 as result').then(() => {
-  console.log('Conectado com sucesso');
-}).catch((err) => {
-  console.log('Erro ao conectar');
-  console.log(err);
+const connectionString = process.env.DATABASE_URL;
+
+const client = new Client({
+  connectionString: connectionString
 });
+
+client.connect()
+  .then(() => {
+    console.log('Conexão com o banco de dados bem-sucedida!');
+    return client.end();
+  })
+  .catch(err => {
+    console.error('Erro ao conectar ao banco de dados:', err.stack);
+  });
 
 app.get('/', (req, res) => {
   res.send('API de Drinks');

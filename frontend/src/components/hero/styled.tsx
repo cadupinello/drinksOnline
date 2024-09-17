@@ -87,7 +87,7 @@ export const Button = styled("button")(({ theme }) => ({
   fontWeight: "600",
   border: "none",
   padding: "10px 20px",
-  borderRadius: "5px",
+  borderRadius: "2px",
   marginTop: "15px",
   cursor: "pointer",
   transition: "all 0.3s ease",
