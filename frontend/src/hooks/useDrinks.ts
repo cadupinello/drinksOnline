@@ -8,7 +8,7 @@ interface fetchDrinksParams {
 
 const fetchDrinks = async (params: fetchDrinksParams = {}) => {
   const { category, page = 1, limit = 10 } = params;
-  const url = new URL('http://localhost:3333/drinks');
+  const url = new URL('https://drinksapi.onrender.com/drinks');
   if (category) {
     url.searchParams.set('category', category);
   }  
