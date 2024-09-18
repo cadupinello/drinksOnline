@@ -7,6 +7,8 @@ export const Container = styled("div")(({ theme }) => ({
   gap: "1rem",
   background: theme.colors.background,
   borderTop: `2px solid #ccc`,
+  position: "sticky",
+  top: "0",
 }))
 
 

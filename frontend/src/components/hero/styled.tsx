@@ -11,12 +11,6 @@ export const Container = styled("div")(({ theme }) => ({
     width: "250px",
     height: "250px",
     alignSelf: "center",
-
-    '@media (max-width: 768px)': {
-      width: "300px",
-      height: "300px",
-
-    },
   },
 }))
 
@@ -94,7 +88,8 @@ export const Button = styled("button")(({ theme }) => ({
   
   "&:hover": {
     background: theme.title === 'light' ? theme.colors.secondary : theme.colors.primary
-  }
+  },
+
 }))
 
 export const ToggleButton = styled("button")<{ isDarkMode: boolean }>(({ theme, isDarkMode }) => ({

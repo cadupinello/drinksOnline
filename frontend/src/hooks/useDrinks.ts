@@ -23,7 +23,6 @@ const fetchDrinks = async (params: fetchDrinksParams = {}) => {
     throw new Error(`Erro ao buscar os drinks`);
   }
   
-  console.log(response)
   const data = await response.json();
   return data.data;
 }

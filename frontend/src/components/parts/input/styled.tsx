@@ -9,10 +9,11 @@ export const Container = styled("div")(({ theme }) => ({
     position: "absolute",
     top: "50%",
     transform: "translateY(-50%)",
-    left: "0.5rem",
+    right: "0.5rem",
     width: "20px",
     height: "20px",
     color: theme.title === 'light' ? theme.colors.primary : theme.colors.text,
+    cursor: "pointer",
   }
 }))
 

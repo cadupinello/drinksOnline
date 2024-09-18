@@ -5,7 +5,6 @@ export const Layout = styled("div")(({ theme }) => ({
   color: theme.colors.text,
 
   width: "100%",
-  height: "100vh",
 
   display: "flex",
   justifyContent: "center",

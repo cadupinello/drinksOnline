@@ -18,6 +18,7 @@ type TItemProps = {
 const Menu = ({ category }: MenuProps) => {
   const { data: drinks, error, isLoading } = useDrinks({ category });
   const { cart, addToCart, removeToCart, finalizeOrder } = useCart();
+
   const titleCategories = [
     { category: 'drinks', title: 'Drinks' },
     { category: 'whiskeys', title: 'Bebidas' },
@@ -41,9 +42,11 @@ const Menu = ({ category }: MenuProps) => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <p>R$ {item.price}</p>
                 <button onClick={() => addToCart(item)}>Adicionar ao carrinho</button>
-                <button className="trashIcon" onClick={() => removeToCart(item)}>
-                  <Trash2 />
-                </button>
+                {cart.find(cartItem => cartItem.id === item.id) && (
+                  <button className="trashIcon" onClick={() => removeToCart(item)}>
+                    <Trash2 />
+                  </button>
+                )}
               </div>
             </div>
             {item.photo && <img src={item.photo} alt={item.name} />}

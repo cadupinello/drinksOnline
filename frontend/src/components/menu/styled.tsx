@@ -5,16 +5,6 @@ export const Container = styled("div")(() => ({
   flexDirection: "column",
   padding: "1rem",
   gap: "1rem",
-  overflowY: "auto",
-
-  "&::-webkit-scrollbar": {
-    width: "0.5rem",
-  },
-
-  "&::-webkit-scrollbar-thumb": {
-    background: "#00000039",
-    borderRadius: "0.5rem",
-  }
 }))
 
 

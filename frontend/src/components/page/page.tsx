@@ -14,7 +14,7 @@ const Page = ({toggleTheme}: PageProps) => {
     <Styled.Container>
       <Hero toggleTheme={toggleTheme} />
       <Header />
-      <Menu category={category} />
+      <Menu category={category ?? 'drinks'} />
     </Styled.Container>
   )
 }
