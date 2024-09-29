@@ -4,7 +4,9 @@ import { useDrinks } from '../../hooks/useDrinks';
 import { TDrinksData } from '../../types/drinksData';
 import * as Styled from './styled';
 import Trash2 from '../../assets/icons/trash2';
-
+import { useState } from 'react';
+import Close from '../../assets/icons/close';
+import CartIcon from '../../assets/icons/cart';
 type MenuProps = {
   category?: string;
 };
@@ -17,6 +19,19 @@ type TItemProps = {
 } & TDrinksData;
 
 const Menu = ({ category }: MenuProps) => {
+  const [isOpenOrder, setIsOpenOrder] = useState(false);
+
+  const variants = {
+    open: {
+      opacity: 1, y: '-0%',
+      transition: { duration: 0.3 },
+    },
+    closed: {
+      opacity: 0, y: '100%',
+      transition: { duration: 0.3 },
+    }
+  }
+
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
 
@@ -48,7 +63,7 @@ const Menu = ({ category }: MenuProps) => {
         {category ? titleCategories.find(item => item.category === category)?.title : 'Todos os Drinks'}
       </Styled.Title>
       <Styled.List>
-      {filteredDrinks?.length ? (
+        {filteredDrinks?.length ? (
           filteredDrinks.map((item: TItemProps) => (
             <Styled.Item key={item.id}>
               <div>
@@ -74,10 +89,27 @@ const Menu = ({ category }: MenuProps) => {
           <p>Nenhum produto encontrado.</p>
         )}
       </Styled.List>
+      <Styled.CartToggle onClick={() => setIsOpenOrder(!isOpenOrder)}>
+        <CartIcon />
+      </Styled.CartToggle>
       {cart.length > 0 && (
-        <Styled.Orders>
-          <h1>Resumo do Pedido</h1>
-          <p>Total: R$ {cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
+        <Styled.Orders animate={isOpenOrder ? 'open' : 'closed'} variants={variants}>
+          <div>
+            <h1>Resumo do Pedido</h1>
+            <button onClick={() => setIsOpenOrder(!isOpenOrder)} >
+              <Close />
+            </button>
+          </div>
+          <div className='orderSumary'>
+            {cart.map((item: any) => (
+              <div className='orderItem' key={item.id}>
+                <img src={item.photo} alt={item.name} />
+                <p>{item.quantity}x {item.name}</p>
+                <span>R$ {(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          <p><strong>Total:</strong> R$ {cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
           <button onClick={finalizeOrder}>Finalizar pedido</button>
         </Styled.Orders>
       )}

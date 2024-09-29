@@ -69,7 +69,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       .map(item => `${item.quantity}x ${item.name} - R$ ${item.price * item.quantity}`)
       .join('%0D%0A');
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const whatsappLink = `https://wa.me/5511957944402?text=Itens:%0D%0A${whatsappMessage}%0D%0ATotal: R$ ${total.toFixed(2)}`;
+    const whatsappLink = `https://wa.me/5511957944402?text=Bem%20vindo%20ao%20Faustino%20Drinks%0D%0AItens:%0D%0A${whatsappMessage}%0D%0ATotal: R$ ${total.toFixed(2)}`;
     window.open(whatsappLink, '_blank');
   }
 
