@@ -126,7 +126,7 @@ export const Orders = styled(motion.div)(({ theme }) => ({
   borderRadius: "5px",
   position: "fixed",
   bottom: "1rem",
-  right: "32%",
+  right: "35%",
   gap: "1rem",
   overflowY: "auto",
   overflowX: "hidden",
@@ -242,7 +242,8 @@ export const Orders = styled(motion.div)(({ theme }) => ({
   },
 
   "@media (max-width: 768px)": {
-    width: "90%",
+    width: "70%",
+    right: "1rem",
   }
 }))
 
@@ -250,7 +251,7 @@ export const CartToggle = styled("button")(({ theme }) => ({
   display: "flex",
   position: "fixed",
   bottom: "1rem",
-  right: "32%",
+  right: "35%",
   width: "50px",
   height: "50px",
   alignItems: "center",
@@ -260,4 +261,8 @@ export const CartToggle = styled("button")(({ theme }) => ({
   border: "none",
   borderRadius: "50%",
   cursor: "pointer",
+
+  "@media (max-width: 768px)": {
+    right: "1rem",
+  }
 }))
