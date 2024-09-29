@@ -27,6 +27,17 @@ export const List = styled("div")(() => ({
 export const Item = styled("div")(({ theme }) => ({
   display: "flex",
   paddingTop: "1rem",
+  alignItems: "center",
+
+  "span.quantity": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "2px",
+    color: theme.colors.primary,
+    fontSize: "14px",
+    fontWeight: "600",
+  },
 
   "> div": {
     display: "flex",
@@ -64,6 +75,8 @@ export const Item = styled("div")(({ theme }) => ({
       },
 
       "> button": {
+        display: "flex",
+        alignItems: "center",
         backgroundColor: theme.colors.secondary,
         color: theme.colors.background,
         border: "none",
@@ -77,14 +90,15 @@ export const Item = styled("div")(({ theme }) => ({
         },
 
         '&.trashIcon': {
+          padding: "0",
+          margin: "0",
+
           'svg': {
             width: "14px",
             height: "14px",
           },
           backgroundColor: theme.colors.background,
           color: theme.colors.primary,
-          padding: "0",
-          margin: "0",
           cursor: "pointer",
         }
       }

@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'; // Para acessar o search da URL
 import { useCart } from '../../context/useCart';
 import { useDrinks } from '../../hooks/useDrinks';
 import { TDrinksData } from '../../types/drinksData';
@@ -13,10 +14,14 @@ type TItemProps = {
   name: string;
   price: number;
   quantity: number;
-} & TDrinksData
+} & TDrinksData;
 
 const Menu = ({ category }: MenuProps) => {
-  const { data: drinks, error, isLoading } = useDrinks({ category });
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get('search') || '';
+
+  const { data: drinks, error, isLoading } = useDrinks({ category, search });
+
   const { cart, addToCart, removeToCart, finalizeOrder } = useCart();
 
   const titleCategories = [
@@ -28,30 +33,46 @@ const Menu = ({ category }: MenuProps) => {
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error.message}</p>;
 
+  const filteredDrinks = drinks?.filter(({ name }: TDrinksData) => name.toLowerCase().includes(search.toLowerCase()));
+
+  const descriptionDots = (text: string) => {
+    if (text.length > 30) {
+      return `${text.slice(0, 30)}...`;
+    }
+    return text
+  }
+
   return (
     <Styled.Container>
       <Styled.Title>
         {category ? titleCategories.find(item => item.category === category)?.title : 'Todos os Drinks'}
       </Styled.Title>
       <Styled.List>
-        {drinks?.map((item: TItemProps) => (
-          <Styled.Item key={item.id}>
-            <div>
-              <h1>{item.name}</h1>
-              <span>{item.description}</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <p>R$ {item.price}</p>
-                <button onClick={() => addToCart(item)}>Adicionar ao carrinho</button>
-                {cart.find(cartItem => cartItem.id === item.id) && (
-                  <button className="trashIcon" onClick={() => removeToCart(item)}>
-                    <Trash2 />
-                  </button>
-                )}
+      {filteredDrinks?.length ? (
+          filteredDrinks.map((item: TItemProps) => (
+            <Styled.Item key={item.id}>
+              <div>
+                <h1>{item.name}</h1>
+                <span>{descriptionDots(item.description ?? '')}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <p>R$ {item.price}</p>
+                  <button onClick={() => addToCart(item)}>Adicionar ao carrinho</button>
+                  {cart.find(cartItem => cartItem.id === item.id) && (
+                    <button className="trashIcon" onClick={() => removeToCart(item)}>
+                      <Trash2 />
+                    </button>
+                  )}
+                  {cart.find(cartItem => cartItem.id === item.id) && (
+                    <span className="quantity">{cart.find(cartItem => cartItem.id === item.id)?.quantity}</span>
+                  )}
+                </div>
               </div>
-            </div>
-            {item.photo && <img src={item.photo} alt={item.name} />}
-          </Styled.Item>
-        ))}
+              {item.photo && <img src={item.photo} alt={item.name} />}
+            </Styled.Item>
+          ))
+        ) : (
+          <p>Nenhum produto encontrado.</p>
+        )}
       </Styled.List>
       {cart.length > 0 && (
         <Styled.Orders>

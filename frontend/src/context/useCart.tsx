@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react'
 
 type CartItem = {
   id: number
@@ -29,19 +29,19 @@ export const useCart = () => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
-  const addToCart = (item: CartItem) => {
-    setCart(prevCart => {
-      const isExistItem = prevCart.findIndex(cartItem => cartItem.id === item.id)
-
-      if (isExistItem !== -1) {
-        const updatedCart = [...prevCart]
-        updatedCart[isExistItem].quantity += 1
-        return updatedCart
-      } else {
-        return [...prevCart, { ...item, quantity: 1 }]
-      }
-    })
-  }
+  const addToCart = useCallback((item: CartItem) => {
+      setCart(prevCart => {
+        const isExistItem = prevCart.findIndex(cartItem => cartItem.id === item.id)
+  
+        if (isExistItem !== -1) {
+          const updatedCart = [...prevCart]
+          updatedCart[isExistItem].quantity += 1
+          return updatedCart
+        } else {
+          return [...prevCart, { ...item, quantity: 1 }]
+        }
+      })
+  }, [ setCart ])
 
   const removeToCart = (item: CartItem) => {
     setCart(prevCart => {

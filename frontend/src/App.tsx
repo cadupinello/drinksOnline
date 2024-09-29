@@ -14,10 +14,8 @@ function App() {
   const queryClient = new QueryClient()
 
   const toggleTheme = () => {
-    console.log(theme)
     setTheme(theme.title === 'light' ? dark : light)
   }
-
 
   return (
     <QueryClientProvider client={queryClient}>
